@@ -19,30 +19,29 @@ def load_soup():
     soup = BeautifulSoup(html, "html.parser")
     return soup
 
-# page_amount = 10
-page_amount=0
+page_amount=1
 soup=load_soup()
-pagination = soup.find('ul', {'class' : 'pagination df fdr acc jcc'})
-for i in range(page_amount+1):
-    table = soup.find('div', {'class' : 'body svelte-15wjsvk'})
-    rows =table.findAll("div", attrs={'class':'tr'})
+pagination = soup.find('ul', attrs={'class' : 'pagination df fdr acc jcc'})
+next = pagination.find('button', attrs={'class': 'mirror css-h4r5me'})
+for i in range(page_amount):
+    table = soup.find('tbody')
+    rows =table.findAll('tr')
     i=0
     for row in rows:
-        cols = row.findAll('div', attrs={'class':'td'})
+        cols = row.findAll('td')
         fund = {}
         for col in cols:
             if col.text != 'undefined':
                 if i==0:
                     fund['Time'] = col.text
-                elif i==1:
-                    fund['Symbol']=col.text
-                elif i==2:
-                    fund['Funding Interval']=col.text
                 elif i==3:
                     fund['Funding Rate']=col.text
             i+=1
         fund_data.append(fund)
         i=0
+    driver.execute_script("arguments[0].click();", next)
+    soup = load_soup()
+
 
   
 filename = 'funding_history.csv'
