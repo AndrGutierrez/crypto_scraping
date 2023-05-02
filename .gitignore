@@ -3,4 +3,4 @@ geckodriver.log
 funding_history.csv
 *.html
 /**/__pycache__
-*.csv
+data/*.csv

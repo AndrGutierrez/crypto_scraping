@@ -22,7 +22,7 @@ time.sleep(2)
 
 
 
-page_amount=5
+page_amount=10
 j=0
 fund_data= []
 
@@ -33,21 +33,23 @@ for i in range(page_amount):
     for row in rows[1:]:
         row_data=row.find_elements(By.TAG_NAME, 'td')
         fund = {}
+        j=0
         for item in row_data:
             data = item.get_attribute('innerHTML')
-            print(data)
             if j==0:
+                # if data[-8:] != "20:00:00":
+                #     break
+                # print(data[-8:])
                 fund['Time'] = data
             elif j==2:
                 fund['Funding Rate']= data
             j+=1
-        j=0
-        # print(fund)
         fund_data.append(fund)
     driver.execute_script("arguments[0].click();", next_button)
     time.sleep(2)
 
-  
+fund_data = [data for data in fund_data if data != {}]
+print(fund_data)
 filename = './data/binance.csv'
 write_csv(filename, fund_data)
 driver.close() # closing the webdriver
