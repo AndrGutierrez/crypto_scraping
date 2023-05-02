@@ -48,7 +48,7 @@ for i in range(page_amount):
     time.sleep(2)
 
   
-filename = 'funding_history.csv'
+filename = './data/phemex.csv'
 with open(filename, 'w', newline='') as f:
     w = csv.DictWriter(f,['Time','Funding Rate'])
     w.writeheader()
