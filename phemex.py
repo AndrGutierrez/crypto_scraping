@@ -3,8 +3,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
+from utils.write_csv import write_csv
 import time
-import csv
  
 options = Options()
 options.add_argument('--headless')
@@ -21,7 +21,7 @@ time.sleep(2)
 
 
 
-page_amount=5
+page_amount=10
 j=0
 fund_data= []
 
@@ -49,10 +49,6 @@ for i in range(page_amount):
 
   
 filename = './data/phemex.csv'
-with open(filename, 'w', newline='') as f:
-    w = csv.DictWriter(f,['Time','Funding Rate'])
-    w.writeheader()
-    for fund in fund_data:
-        w.writerow(fund)
+write_csv(filename, fund_data)
   
 driver.close() # closing the webdriver

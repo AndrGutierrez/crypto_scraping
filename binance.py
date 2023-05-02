@@ -4,7 +4,8 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 import time
-import csv
+
+from utils.write_csv import write_csv
  
 options = Options()
 options.add_argument('--headless')
@@ -48,10 +49,5 @@ for i in range(page_amount):
 
   
 filename = './data/binance.csv'
-with open(filename, 'w', newline='') as f:
-    w = csv.DictWriter(f,['Time','Funding Rate'])
-    w.writeheader()
-    for fund in fund_data:
-        w.writerow(fund)
-  
+write_csv(filename, fund_data)
 driver.close() # closing the webdriver
