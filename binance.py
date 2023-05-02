@@ -20,9 +20,7 @@ time.sleep(2)
 # table_content=driver.find_elements(By.XPATH,"//div[@class='body svelte-15wjsvk']")
 # print(table_content[0].get_attribute('innerHTML'))
 
-
-
-page_amount=10
+page_amount=55
 j=0
 fund_data= []
 
@@ -49,7 +47,6 @@ for i in range(page_amount):
     time.sleep(2)
 
 fund_data = [data for data in fund_data if data != {}]
-print(fund_data)
 filename = './data/binance.csv'
 write_csv(filename, fund_data)
 driver.close() # closing the webdriver
