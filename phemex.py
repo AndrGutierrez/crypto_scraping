@@ -21,7 +21,7 @@ time.sleep(2)
 
 
 
-page_amount=10
+page_amount=110
 j=0
 fund_data= []
 
@@ -29,7 +29,6 @@ next_button=driver.find_elements(By.XPATH,"//li[@class='next svelte-3tqfek']")[0
 table = driver.find_elements(By.XPATH,"//div[@class='body svelte-15wjsvk']")[0]
 for i in range(page_amount):
     rows=table.find_elements(By.CLASS_NAME,"tr")
-    print(j)
     for row in rows:
         content=row.find_elements(By.TAG_NAME, 'div')
         fund = {}
